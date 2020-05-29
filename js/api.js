@@ -38,18 +38,41 @@ function getMatches() {
         if (response) {
           response.json().then(function (data) {
             let matchHTML = "";
-            data.matches[0].table.forEach(function (match) {
+            data.matches.forEach(function (match) {
               matchHTML += `
                 <tr class="row-first centered">
-                    <th class="centered">{match.home}</th>
-                    <th class="centered">Arsenal Fc</th>
-                    <th class="centered">5 - 2</th>
-                    <th class="centered">Liverpool Fc</th>
+                  <th class="centered">${match.homeTeam.name}</th>
+                  <th class="centered">Vs</th>
+                  <th class="centered">${match.awayTeam.name}</th>
+                  <th class="centered">${match.score.fullTime.awayTeam} - ${match.score.fullTime.awayTeam}</th>
+                  <th class="centered">${match.status}</th>
                 </tr>
-                `;
+              `;
             });
+
+            document.getElementById("matchEngland").innerHTML = matchHTML;
           });
         }
       });
   }
+
+  fetchApi(base_url + "v2/competitions/2021/matches")
+    .then(status)
+    .then(json)
+    .then(function (data) {
+      let matchHTML = "";
+      data.matches.forEach(function (match) {
+        matchHTML += `
+                <tr class="row-first centered">
+                <th class="centered">${match.homeTeam.name}</th>
+                  <th class="centered">Vs</th>
+                  <th class="centered">${match.awayTeam.name}</th>
+                  <th class="centered">${match.score.fullTime.homeTeam} - ${match.score.fullTime.awayTeam}</th>
+                  <th class="centered">${match.status}</th>
+                </tr>
+              `;
+      });
+
+      document.getElementById("matchEngland").innerHTML = matchHTML;
+    });
 }
