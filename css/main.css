@@ -108,7 +108,7 @@ i:active {
 }
 
 .btn-jumbo {
-  padding: 10px 20px;
+  padding: 10px 15px;
   font-size: 1.5rem;
   font-family: "Poppins";
   background-color: var(--yellow-color);
@@ -127,7 +127,7 @@ i:active {
 }
 
 .btn-jumbo:hover {
-  background-color: #ffcb22;
+  background-color: #ffdc6a;
 }
 
 /* ---------------------------- */
