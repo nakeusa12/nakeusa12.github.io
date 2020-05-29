@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Active sidebar nav
+  // SIDEBAR NAVIGATION
   var elems = document.querySelectorAll(".sidenav");
   M.Sidenav.init(elems);
   loadNav();
 
   function loadNav() {
-    let xhttp = new XMLHttpRequest();
+    var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4) {
         if (this.status != 200) return;
