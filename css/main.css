@@ -134,6 +134,7 @@ i:active {
 
 .section-title {
   margin-top: 30px;
+  margin-left: 10px;
   font-size: 1.8rem;
   text-transform: uppercase;
   font-weight: 700;
@@ -167,4 +168,14 @@ i:active {
   .section-title {
     font-size: 3.5vh;
   }
+}
+
+/* ---------------------------- */
+
+.league-name {
+  padding: 15px;
+  color: var(--gray-color);
+  font-weight: 600;
+  text-transform: uppercase;
+  background: var(--black-color);
 }

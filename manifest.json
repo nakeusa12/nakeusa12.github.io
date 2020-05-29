@@ -1,0 +1,16 @@
+{
+  "name": "Win Play",
+  "short_name": "winplay",
+  "description": "news sports & football information",
+  "start_url": "/winplay/index.html",
+  "display": "standalone",
+  "background_color": "#222233",
+  "theme_color": "#222233",
+  "icons": [
+    {
+      "src": "./img/icon512px.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
