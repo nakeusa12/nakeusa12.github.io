@@ -30,49 +30,98 @@ function error(error) {
   console.log("Error : " + error);
 }
 
-function getMatches() {
+// function getMatches() {
+//   if ("caches" in window) {
+//     caches
+//       .match(base_url + "v2/competitions/2001/matches")
+//       .then(function (response) {
+//         if (response) {
+//           response.json().then(function (data) {
+//             let matchHTML = "";
+//             data.matches.forEach(function (match) {
+//               matchHTML += `
+//                 <tr class="row-first centered">
+//                   <th class="centered">${match.homeTeam.name}</th>
+//                   <th class="centered">Vs</th>
+//                   <th class="centered">${match.awayTeam.name}</th>
+//                   <th class="centered">${match.score.fullTime.awayTeam} - ${match.score.fullTime.awayTeam}</th>
+//                   <th class="centered">${match.status}</th>
+//                 </tr>
+//               `;
+//             });
+
+//             document.getElementById("matchUEFA").innerHTML = matchHTML;
+//           });
+//         }
+//       });
+//   }
+
+//   fetchApi(base_url + "v2/competitions/2001/matches")
+//     .then(status)
+//     .then(json)
+//     .then(function (data) {
+//       let matchHTML = "";
+//       data.matches.forEach(function (match) {
+//         matchHTML += `
+//                 <tr class="row-first centered">
+//                 <th class="centered">${match.homeTeam.name}</th>
+//                   <th class="centered">Vs</th>
+//                   <th class="centered">${match.awayTeam.name}</th>
+//                   <th class="centered">${match.score.fullTime.homeTeam} - ${match.score.fullTime.awayTeam}</th>
+//                   <th class="centered">${match.status}</th>
+//                 </tr>
+//               `;
+//       });
+
+//       document.getElementById("matchUEFA").innerHTML = matchHTML;
+//     });
+// }
+
+function getTeams() {
   if ("caches" in window) {
     caches
-      .match(base_url + "v2/competitions/2021/matches")
+      .match(base_url + "v2/competitions/2021/teams")
       .then(function (response) {
         if (response) {
           response.json().then(function (data) {
-            let matchHTML = "";
-            data.matches.forEach(function (match) {
-              matchHTML += `
-                <tr class="row-first centered">
-                  <th class="centered">${match.homeTeam.name}</th>
-                  <th class="centered">Vs</th>
-                  <th class="centered">${match.awayTeam.name}</th>
-                  <th class="centered">${match.score.fullTime.awayTeam} - ${match.score.fullTime.awayTeam}</th>
-                  <th class="centered">${match.status}</th>
-                </tr>
-              `;
+            let teamHTML = "";
+            data.teams.forEach(function (team) {
+              var urlTeamImage = team.crestUrl;
+              urlTeamImage = urlTeamImage.replace(/^http:\/\//i, "https://");
+              teamHTML += `<a href=./pages/detailteam.html?id=${team.id}>
+                                <div class="team-info">
+                                    <div class="club-image">
+                                        <img src="${urlTeamImage}" alt="">
+                                    </div>
+                                    <p>${team.name}</p>
+                                    </div>
+                                </a>`;
             });
 
-            document.getElementById("matchEngland").innerHTML = matchHTML;
+            document.getElementById("team-inggris").innerHTML = teamHTML;
           });
         }
       });
   }
 
-  fetchApi(base_url + "v2/competitions/2021/matches")
+  fetchApi(base_url + "v2/competitions/2021/teams")
     .then(status)
     .then(json)
     .then(function (data) {
-      let matchHTML = "";
-      data.matches.forEach(function (match) {
-        matchHTML += `
-                <tr class="row-first centered">
-                <th class="centered">${match.homeTeam.name}</th>
-                  <th class="centered">Vs</th>
-                  <th class="centered">${match.awayTeam.name}</th>
-                  <th class="centered">${match.score.fullTime.homeTeam} - ${match.score.fullTime.awayTeam}</th>
-                  <th class="centered">${match.status}</th>
-                </tr>
-              `;
+      let teamHTML = "";
+      data.teams.forEach(function (team) {
+        var urlTeamImage = team.crestUrl;
+        urlTeamImage = urlTeamImage.replace(/^http:\/\//i, "https://");
+        teamHTML += `<a href=./pages/detailteam.html?id=${team.id}>
+                          <div class="team-info">
+                              <div class="club-image">
+                                  <img src="${urlTeamImage}" alt="">
+                              </div>
+                              <p>${team.name}</p>
+                              </div>
+                          </a>`;
       });
 
-      document.getElementById("matchEngland").innerHTML = matchHTML;
+      document.getElementById("team-inggris").innerHTML = teamHTML;
     });
 }
