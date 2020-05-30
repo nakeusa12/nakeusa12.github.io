@@ -1,12 +1,13 @@
-var CACHE_NAME = "winplay-v2";
+var CACHE_NAME = "winplay-v1";
 var urlsToCache = [
   "/",
   "/nav.html",
   "/index.html",
   "/pages/home.html",
   "/pages/ranks.html",
-  "/pages/teams.html",
+  "/pages/topscore.html",
   "/pages/favorite.html",
+  "/pages/detailteam.html",
   "/css/materialize.css",
   "/css/main.css",
   "/js/materialize.min.js",

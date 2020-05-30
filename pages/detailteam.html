@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Win Play</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/materialize.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/favicon16x16.png" />
+    <!-- manifest -->
+    <meta name="theme-color" content="#222233" />
+    <link rel="manifest" href="..//manifest.json" />
+    <!-- random link -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+</html>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container-nav">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">
+          <img src="../img/logo.png" alt="" />
+        </a>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"
+          ><i class="material-icons">menu</i></a
+        >
+        <ul class="topnav right hide-on-med-and-down">
+          <li><a href="../index.html#home">Kembali</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- End Navbar -->
+  <!-- Sidebar -->
+
+  <ul class="sidenav" id="nav-mobile">
+    <li><a class="waves-effect" href="../index.html#home">Home</a></li>
+    <li><a class="waves-effect" href="../index.html#ranks">Ranks</a></li>
+    <li><a class="waves-effect" href="../index.html#topscore">Top Score</a></li>
+    <li>
+      <a class="waves-effect" href="../index.html#favorite">Saved</a>
+    </li>
+  </ul>
+
+  <!-- End Sidebar -->
+  <!-- Content -->
+
+  <div class="container">
+    <section>
+      <div class="row">
+        <h2 class="section-title">Team Detail</h2>
+      </div>
+      <p class="team-name"></p>
+      <div class="row responsive">
+        <div class="col s12 m4 area-info-team">
+          <div class="logo-team"></div>
+          <div class="info-team">
+            <ul class="detail-info-team"></ul>
+          </div>
+        </div>
+        <div class="col s12 m8">
+          <table class="team-table responsive-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Nationality</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody class="detail-team"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- End Content -->
+  <!-- Footer -->
+
+  <footer>
+    <p>&copy; Copyright 2020 - www.winplay.com</p>
+  </footer>
+
+  <!-- End Footer -->
+
+  <!-- Javascript-->
+  <script src="../js/materialize.min.js"></script>
+  <script src="../js/api.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      getTeamsById();
+
+      var elems = document.querySelectorAll(".sidenav");
+      M.Sidenav.init(elems);
+    });
+  </script>
+</body>

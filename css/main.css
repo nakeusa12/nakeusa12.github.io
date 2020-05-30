@@ -231,8 +231,6 @@ i:active {
   margin: 30px 0;
 }
 
-/* ---------------------------- */
-
 #englishteam .team-frame {
   width: 100%;
   text-align: center;
@@ -324,4 +322,51 @@ i:active {
   #englishteam .team-frame .team-info .club-image img {
     width: 100%;
   }
+}
+
+/* ---------------------------- */
+
+.team-name {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--black-color);
+  font-weight: 700;
+}
+
+.area-info-team {
+  background-color: var(--white-color);
+  -webkit-box-shadow: 2px 2px 20px rgba(186, 186, 186, 0.25);
+  box-shadow: 2px 2px 20px rgba(186, 186, 186, 0.25);
+  position: relative;
+}
+
+.logo-team {
+  padding: 20px;
+}
+
+.logo-team img {
+  width: 100%;
+  height: 200px;
+}
+
+.detail-info-team {
+  padding: 20px;
+}
+
+.team-table {
+  text-align: center;
+  background-color: var(--white-color);
+  -webkit-box-shadow: 2px 2px 20px rgba(186, 186, 186, 0.25);
+  box-shadow: 2px 2px 20px rgba(186, 186, 186, 0.25);
+  position: relative;
+  border: 1px solid var(--black-color);
+}
+
+.team-table thead {
+  background-color: var(--black-color);
+  color: var(--gray-color);
+}
+
+.team-table tbody tr {
+  border: 1px solid #cecece;
 }

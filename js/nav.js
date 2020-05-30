@@ -51,6 +51,17 @@ document.addEventListener("DOMContentLoaded", function () {
           if (page == "home") {
             getTeams();
           }
+          //   }else if (page == "tables") {
+          //     getEnglandStanding();
+          // } else if (page == "teams") {
+          //     getTeams();
+          // } else if (page == "manage") {
+          //     setTimeout(function () {
+          //         viewSavedTeam();
+          //         viewPlayer();
+          //     }, 3000);
+
+          // }
         } else if (this.status == 404) {
           content.innerHTML = "<p>Halaman tidak ditemukan.</p>";
         } else {

@@ -125,3 +125,89 @@ function getTeams() {
       document.getElementById("team-inggris").innerHTML = teamHTML;
     });
 }
+
+function getTeamsById() {
+  return new Promise((resolve, reject) => {
+    // Mengambil nilai query parameter (?id=)
+    var urlParams = new URLSearchParams(window.location.search);
+    var idParam = urlParams.get("id");
+
+    if ("caches" in window) {
+      caches.match(base_url + "v2/teams/" + idParam).then(function (response) {
+        if (response) {
+          response.json().then(function (data) {
+            let urlTeamImage = data.crestUrl;
+            urlTeamImage = urlTeamImage.replace(/^http:\/\//i, "https://");
+            let logoTeam = `<img src="${urlTeamImage}" alt="">`;
+            let nameTeam = data.name;
+            let detailTeam = `
+              <li>Name : ${data.name}</li>
+              <li>Short Name : ${data.shortName}</li>
+              <li>Website : ${data.website}</li>
+              <li>Phone : ${data.phone}</li>
+              <li>Address : ${data.address}</li>
+              <li>Stadium : ${data.venue}</li>
+              <li>Founded : ${data.founded}</li>
+              <li>Club Colors : ${data.clubColors}</li>
+            `;
+
+            let teamDetail = "";
+            data.squad.forEach(function (player) {
+              teamDetail += `
+              <tr>
+                <th>${player.name}</th>
+                <th>${player.position}</th>
+                <th>${player.nationality}</th>
+                <th>${player.role}</th>
+              </tr>
+              `;
+            });
+
+            document.querySelector(".logo-team").innerHTML = logoTeam;
+            document.querySelector(".team-name").innerHTML = nameTeam;
+            document.querySelector(".detail-info-team").innerHTML = detailTeam;
+            document.querySelector(".detail-team").innerHTML = teamDetail;
+          });
+        }
+      });
+    }
+
+    fetchApi(base_url + "v2/teams/" + idParam)
+      .then(status)
+      .then(json)
+      .then(function (data) {
+        let urlTeamImage = data.crestUrl;
+        urlTeamImage = urlTeamImage.replace(/^http:\/\//i, "https://");
+        let logoTeam = `<img src="${urlTeamImage}" alt="">`;
+        let nameTeam = data.name;
+        let detailTeam = `
+              <li><b>Name</b> : ${data.name}</li>
+              <li><b>Short Name</b> : ${data.shortName}</li>
+              <li><b>Website</b> : ${data.website}</li>
+              <li><b>Phone</b> : ${data.phone}</li>
+              <li><b>Address</b> : ${data.address}</li>
+              <li><b>Stadium</b> : ${data.venue}</li>
+              <li><b>Founded</b> : ${data.founded}</li>
+              <li><b>Club Colors</b> : ${data.clubColors}</li>
+            `;
+
+        let teamDetail = "";
+        let number = 1;
+        data.squad.forEach(function (player) {
+          teamDetail += `
+              <tr>
+                <th class="gray-main">${player.name}</th>
+                <th>${player.position}</th>
+                <th class="gray-main">${player.nationality}</th>
+                <th >${player.role}</th>
+              </tr>
+              `;
+        });
+
+        document.querySelector(".logo-team").innerHTML = logoTeam;
+        document.querySelector(".team-name").innerHTML = nameTeam;
+        document.querySelector(".detail-info-team").innerHTML = detailTeam;
+        document.querySelector(".detail-team").innerHTML = teamDetail;
+      });
+  });
+}
