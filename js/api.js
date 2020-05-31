@@ -167,6 +167,8 @@ function getTeamsById() {
             document.querySelector(".team-name").innerHTML = nameTeam;
             document.querySelector(".detail-info-team").innerHTML = detailTeam;
             document.querySelector(".detail-team").innerHTML = teamDetail;
+            // Kirim objek data hasil parsing json agar bisa disimpan ke indexed db
+            resolve(data);
           });
         }
       });
@@ -192,7 +194,6 @@ function getTeamsById() {
             `;
 
         let teamDetail = "";
-        let number = 1;
         data.squad.forEach(function (player) {
           teamDetail += `
               <tr>
@@ -208,6 +209,8 @@ function getTeamsById() {
         document.querySelector(".team-name").innerHTML = nameTeam;
         document.querySelector(".detail-info-team").innerHTML = detailTeam;
         document.querySelector(".detail-team").innerHTML = teamDetail;
+        // Kirim objek data hasil parsing json agar bisa disimpan ke indexed db
+        resolve(data);
       });
   });
 }

@@ -50,6 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
           if (page == "home") {
             getTeams();
+          } else if (page == "manage") {
+            saveTeamFav();
           }
           //   }else if (page == "tables") {
           //     getEnglandStanding();

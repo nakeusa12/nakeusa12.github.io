@@ -399,3 +399,19 @@ i:active {
     padding: 10px 0rem;
   }
 }
+
+/* ---------------------------- */
+
+.save-bg {
+  background-color: var(--black-color);
+}
+
+.save-bg:hover {
+  background-color: var(--black-color);
+}
+
+.save-bg i:hover {
+  background-color: var(--black-color);
+}
+
+/* ---------------------------- */
