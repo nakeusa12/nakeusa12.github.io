@@ -112,7 +112,7 @@ function getTeams() {
       data.teams.forEach(function (team) {
         var urlTeamImage = team.crestUrl;
         urlTeamImage = urlTeamImage.replace(/^http:\/\//i, "https://");
-        teamHTML += `<a href=./pages/detailteam.html?id=${team.id}>
+        teamHTML += `<a href=./pages/detailteam.html?id=${team.id}&saved=true>
                           <div class="team-info">
                               <div class="club-image">
                                   <img src="${urlTeamImage}" alt="">

@@ -1,3 +1,7 @@
+// Informasi dari Developer Mozilla
+// Dan Video Tutorial IndexdDB di YOUTUBE
+
+// Untuk menyimpan data sementara dari  target btn yg di klick
 let db = null;
 
 const request = indexedDB.open("winplay", "1");
@@ -5,7 +9,7 @@ const request = indexedDB.open("winplay", "1");
 request.onupgradeneeded = (e) => {
   db = e.target.result;
 
-  const sTeam = db.createObjectStore("saved_team", {
+  const sTeam = db.createObjectStore("team_saving", {
     keyPath: "id",
   });
 
@@ -39,11 +43,20 @@ if (btnSaveTeam) {
           id: data.id,
           image: data.crestUrl,
           name: data.name,
+          shortName: data.shortName,
+          website: data.website,
+          phone: data.phone,
+          address: data.address,
+          venue: data.venue,
+          founded: data.founded,
+          color: data.clubColors,
         };
+        console.log(dataTeam);
 
-        const tx = db.transaction("saved_team", "readwrite");
-        const savedTeam = tx.objectStore("saved_team");
-        savedTeam.put(dataTeam);
+        const tx = db.transaction("team_saving", "readwrite");
+        tx.onerror = (e) => alert(` Error! ${e.target.error}  `);
+        const storeTeam = tx.objectStore("team_saving");
+        storeTeam.add(dataTeam);
         M.toast({
           html: "Team Has Been Saved Succesfully",
         });
@@ -52,8 +65,8 @@ if (btnSaveTeam) {
 }
 
 function saveTeamFav() {
-  const tx = db.transaction("saved_team", "readonly");
-  const readTeam = tx.objectStore("saved_team");
+  const tx = db.transaction("team_saving", "readonly");
+  const readTeam = tx.objectStore("team_saving");
   const request = readTeam.openCursor();
   let savedTeamHTML = ``;
   request.onsuccess = (e) => {
@@ -64,39 +77,61 @@ function saveTeamFav() {
       let urlTeamImage = cursor.value.image;
       urlTeamImage = urlTeamImage.replace(/^http:\/\//i, "https://");
       savedTeamHTML += `
-      <div class="team-info">
-      <p>${cursor.value.name}</p>
-        <div class="club-image">
-        <img src="${urlTeamImage}" alt="">
+      
+      <div class="area-favorite-team">
+        <div class="logo-fav-team">
+          <img src="${urlTeamImage}" alt="">
         </div>
-        <div class="trash" onClick="deleteTeam(${cursor.key});" >
-        <i class="material-icons">clear</i>
+        <div class="info-team-fav">
+          <p class="team-name-fav">${cursor.value.name}</p>
+          <ul class="detail-info-team-fave">
+            <li>
+              <b>Short Name</b> : ${cursor.value.shortName}
+            </li>
+            <li>
+              <b>Website</b> : ${cursor.value.website}
+            </li>
+            <li>
+              <b>Phone</b> : ${cursor.value.phone}
+            </li>
+            <li>
+              <b>Address</b> : ${cursor.value.address}
+            </li>
+            <li>
+              <b>Stadium</b> : ${cursor.value.venue}
+            </li>
+            <li>
+              <b>Founded</b> : ${cursor.value.founded}
+            </li>
+            <li>
+              <b>Club Colors</b> : ${cursor.value.color}
+            </li>
+          </ul>
+        </div>
+        <div class="btn-fav">
+          <div class="trash" onClick="deleteTeam(${cursor.key});" >
+          <i class="material-icons">clear</i>
+          </div>
+          <a class="detail-fav" href="./pages/detailteam.html?id=${cursor.key}" >
+          <i class="material-icons">info</i>
+          </a>
         </div>
       </div>`;
 
       cursor.continue();
     }
 
-    const redTeam = document.getElementById("manageSavedTeam");
-
-    if (redTeam) {
-      redTeam.innerHTML = savedTeamHTML;
-    }
+    document.getElementById("place-save-team").innerHTML = savedTeamHTML;
   };
 }
 
 function deleteTeam(id) {
   console.log(id);
-  const tx = db.transaction("saved_team", "readwrite");
-  const deleteTeam = tx.objectStore("saved_team");
+  const tx = db.transaction("team_saving", "readwrite");
+  const deleteTeam = tx.objectStore("team_saving");
   deleteTeam.delete(id);
 
   M.toast({
     html: "Team Has Been Deleted Succesfully",
   });
-  timedRefresh(20);
-}
-
-function timedRefresh(timeoutPeriod) {
-  setTimeout("location.reload(true);", timeoutPeriod);
 }
