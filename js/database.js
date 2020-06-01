@@ -1,33 +1,35 @@
 let db = null;
 
-const openRequest = indexedDB.open("winplay", "1");
+const request = indexedDB.open("winplay", "1");
 
-openRequest.onupgradeneeded = (event) => {
-  db = event.target.result;
-  let teamSaved = db.createObjectStore("saved_teams", {
+request.onupgradeneeded = (e) => {
+  db = e.target.result;
+
+  const sTeam = db.createObjectStore("saved_team", {
     keyPath: "id",
   });
 
-  console.log("Upgradde is called");
+  console.log("Upgrade is called");
 };
 
-openRequest.onerror = (e) => {
-  console.error("Error", openRequest.error);
-};
-
-openRequest.onsuccess = (e) => {
-  db = event.target.result;
+request.onsuccess = (e) => {
+  db = e.target.result;
 
   // continue to work with database using db object
   console.log("database success ");
 };
 
-const saveButton = document.getElementById("save-team");
-if (saveButton) {
-  saveButton.addEventListener("click", () => {
-    let urlParams = new URLSearchParams(window.location.search);
-    let idParam = urlParams.get("id");
-    fetchApi(base_url + "v2/teams/" + idParam)
+request.onerror = (e) => {
+  console.error("Error", request.error);
+};
+
+const btnSaveTeam = document.getElementById("save-team");
+if (btnSaveTeam) {
+  btnSaveTeam.addEventListener("click", () => {
+    let urlTeam = new URLSearchParams(window.location.search);
+    let idTeam = urlTeam.get("id");
+    console.log(idTeam);
+    fetchApi(base_url + "v2/teams/" + idTeam)
       .then(status)
       .then(json)
       .then(function (data) {
@@ -39,18 +41,20 @@ if (saveButton) {
           name: data.name,
         };
 
-        const tx = db.transaction("saved_teams", "readwrite");
-        const savedTeam = tx.objectStore("saved_teams");
-        savedTeam.add(dataTeam);
+        const tx = db.transaction("saved_team", "readwrite");
+        const savedTeam = tx.objectStore("saved_team");
+        savedTeam.put(dataTeam);
+        M.toast({
+          html: "Team Has Been Saved Succesfully",
+        });
       });
   });
 }
 
 function saveTeamFav() {
-  const tx = db.transaction("saved_teams", "readonly");
-  const savedTeams = tx.objectStore("saved_teams");
-  const request = savedTeams.openCursor();
-
+  const tx = db.transaction("saved_team", "readonly");
+  const readTeam = tx.objectStore("saved_team");
+  const request = readTeam.openCursor();
   let savedTeamHTML = ``;
   request.onsuccess = (e) => {
     const cursor = e.target.result;
@@ -59,21 +63,40 @@ function saveTeamFav() {
       // do something
       let urlTeamImage = cursor.value.image;
       urlTeamImage = urlTeamImage.replace(/^http:\/\//i, "https://");
-      savedTeamHTML += `<div class="team-info">
+      savedTeamHTML += `
+      <div class="team-info">
+      <p>${cursor.value.name}</p>
         <div class="club-image">
         <img src="${urlTeamImage}" alt="">
         </div>
-        <p>${cursor.value.name}</p>
         <div class="trash" onClick="deleteTeam(${cursor.key});" >
-        <i class="far fa-trash-alt"></i>
+        <i class="material-icons">clear</i>
         </div>
-        </div>`;
+      </div>`;
 
       cursor.continue();
     }
 
-    const redTeam = (document.getElementById(
-      "saveTeam"
-    ).innerHTML = savedTeamHTML);
+    const redTeam = document.getElementById("manageSavedTeam");
+
+    if (redTeam) {
+      redTeam.innerHTML = savedTeamHTML;
+    }
   };
+}
+
+function deleteTeam(id) {
+  console.log(id);
+  const tx = db.transaction("saved_team", "readwrite");
+  const deleteTeam = tx.objectStore("saved_team");
+  deleteTeam.delete(id);
+
+  M.toast({
+    html: "Team Has Been Deleted Succesfully",
+  });
+  timedRefresh(20);
+}
+
+function timedRefresh(timeoutPeriod) {
+  setTimeout("location.reload(true);", timeoutPeriod);
 }
