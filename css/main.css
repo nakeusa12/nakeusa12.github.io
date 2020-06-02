@@ -262,9 +262,8 @@ i:active {
   font-weight: 500;
 }
 
-.topscore-table tbody tr th,
-.topscore-table thead tr th {
-  text-align: center;
+.topscore-table tbody .goal {
+  background-color: #bbbbbb;
 }
 /* ---------------------------- */
 

@@ -52,6 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
             getTeams();
           } else if (page == "ranks") {
             getStandingMatches();
+          } else if (page == "topscore") {
+            getTopScorers();
           } else if (page == "favorite") {
             saveTeamFav();
           }

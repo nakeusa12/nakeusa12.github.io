@@ -87,7 +87,56 @@ function getStandingMatches() {
     });
 }
 
-function getStandingMatches() {}
+function getTopScorers() {
+  if ("chaces" in window) {
+    caches
+      .match(base_url + "v2/competitions/2021/scorers")
+      .then(function (response) {
+        if (response) {
+          response.json().then(function (data) {
+            let topscHTML = "";
+            let number = 1;
+            data.scorers.forEach(function (score) {
+              topscHTML += `
+              <tr>
+              <th>${number++}</th>
+              <th>${score.player.name}</th>
+              <th>${score.team.name}</th>
+              <th>${score.player.nationality}</th>
+              <th>${score.player.position}</th>
+              <th class="goal">${score.numberOfGoals} Goals</th>
+            </tr>
+            `;
+            });
+
+            document.getElementById("topscore-league").innerHTML = topscHTML;
+          });
+        }
+      });
+  }
+
+  fetchApi(base_url + "v2/competitions/2021/scorers")
+    .then(status)
+    .then(json)
+    .then(function (data) {
+      let topscHTML = "";
+      let number = 1;
+      data.scorers.forEach(function (score) {
+        topscHTML += `
+              <tr>
+              <th>${number++}</th>
+              <th>${score.player.name}</th>
+              <th>${score.team.name}</th>
+              <th>${score.player.nationality}</th>
+              <th>${score.player.position}</th>
+              <th class="goal">${score.numberOfGoals} Goals</th>
+            </tr>
+            `;
+      });
+
+      document.getElementById("topscore-league").innerHTML = topscHTML;
+    });
+}
 
 function getTeams() {
   if ("caches" in window) {
