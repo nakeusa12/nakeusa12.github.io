@@ -1,4 +1,4 @@
-var CACHE_NAME = "winplay-v1";
+var CACHE_NAME = "winplay-v2";
 var urlsToCache = [
   "/",
   "/nav.html",
@@ -14,12 +14,17 @@ var urlsToCache = [
   "/js/nav.js",
   "/js/api.js",
   "/js/register-sw.js",
+  "/js/database.js",
+  "/js/notification.js",
   "/manifest.json",
   "/img/arrow.svg",
   "/img/favicon16x16.png",
   "/img/icon512px.png",
+  "/img/icon192px.png",
   "/img/logo.png",
   "/img/jumbtron-home.jpg",
+  "/img/image-rank.jpg",
+  "/img/image-team.jpg",
 ];
 
 self.addEventListener("install", function (event) {

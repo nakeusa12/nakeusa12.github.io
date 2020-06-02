@@ -315,7 +315,7 @@ i:active {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 552px) {
   #team .team-frame .team-info .club-image {
     margin: 20px auto;
     width: 120px;
@@ -336,7 +336,7 @@ i:active {
   #team .team-frame .team-info {
     overflow: hidden;
     height: 270px;
-    width: 400px;
+    width: 100%;
     margin-left: 0;
     margin-right: 0;
   }
@@ -513,7 +513,7 @@ i:active {
   .detail-fav {
     position: absolute;
     color: var(--black-color);
-    right: 20px;
-    top: 20px;
+    right: 50px;
+    top: -245px;
   }
 }
