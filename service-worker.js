@@ -1,4 +1,4 @@
-var CACHE_NAME = "winplay-v2";
+var CACHE_NAME = "winplay-v3";
 var urlsToCache = [
   "/",
   "/nav.html",
@@ -13,9 +13,7 @@ var urlsToCache = [
   "/js/materialize.min.js",
   "/js/nav.js",
   "/js/api.js",
-  "/js/register-sw.js",
   "/js/database.js",
-  "/js/notification.js",
   "/manifest.json",
   "/img/arrow.svg",
   "/img/favicon16x16.png",
@@ -70,5 +68,26 @@ self.addEventListener("activate", function (event) {
         })
       );
     })
+  );
+});
+
+self.addEventListener("push", function (event) {
+  var body;
+  if (event.data) {
+    body = event.data.text();
+  } else {
+    body = "Push message no payload";
+  }
+  var options = {
+    body: body,
+    badge: "favicon16x16.png",
+    vibrate: [100, 50, 100],
+    data: {
+      dateOfArrival: Date.now(),
+      primaryKey: 1,
+    },
+  };
+  event.waitUntil(
+    self.registration.showNotification("Push Notification", options)
   );
 });
