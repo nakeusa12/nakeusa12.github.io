@@ -30,52 +30,64 @@ function error(error) {
   console.log("Error : " + error);
 }
 
-// function getMatches() {
-//   if ("caches" in window) {
-//     caches
-//       .match(base_url + "v2/competitions/2001/matches")
-//       .then(function (response) {
-//         if (response) {
-//           response.json().then(function (data) {
-//             let matchHTML = "";
-//             data.matches.forEach(function (match) {
-//               matchHTML += `
-//                 <tr class="row-first centered">
-//                   <th class="centered">${match.homeTeam.name}</th>
-//                   <th class="centered">Vs</th>
-//                   <th class="centered">${match.awayTeam.name}</th>
-//                   <th class="centered">${match.score.fullTime.awayTeam} - ${match.score.fullTime.awayTeam}</th>
-//                   <th class="centered">${match.status}</th>
-//                 </tr>
-//               `;
-//             });
+function getStandingMatches() {
+  if ("caches" in window) {
+    caches
+      .match(base_url + "v2/competitions/2021/matches")
+      .then(function (response) {
+        if (response) {
+          response.json().then(function (data) {
+            let standingHTML = "";
+            data.standings[0].table.forEach(function (standing) {
+              standingHTML += `
+              <tr class="row-first centered">
+                <th class="centered">${standing.position}</th>
+                <th class="centered club">${standing.team.name}</th>
+                <th class="centered">${standing.playedGames}</th>
+                <th class="centered">${standing.won}</th>
+                <th class="centered">${standing.draw}</th>
+                <th class="centered">${standing.lost}</th>
+                <th class="centered">${standing.goalsFor}</th>
+                <th class="centered">${standing.goalsAgainst}</th>
+                <th class="centered">${standing.goalDifference}</th>
+                <th class="centered points">${standing.points}</th>
+              </tr>
+              `;
+            });
 
-//             document.getElementById("matchUEFA").innerHTML = matchHTML;
-//           });
-//         }
-//       });
-//   }
+            document.getElementById("standing-league").innerHTML = standingHTML;
+          });
+        }
+      });
+  }
 
-//   fetchApi(base_url + "v2/competitions/2001/matches")
-//     .then(status)
-//     .then(json)
-//     .then(function (data) {
-//       let matchHTML = "";
-//       data.matches.forEach(function (match) {
-//         matchHTML += `
-//                 <tr class="row-first centered">
-//                 <th class="centered">${match.homeTeam.name}</th>
-//                   <th class="centered">Vs</th>
-//                   <th class="centered">${match.awayTeam.name}</th>
-//                   <th class="centered">${match.score.fullTime.homeTeam} - ${match.score.fullTime.awayTeam}</th>
-//                   <th class="centered">${match.status}</th>
-//                 </tr>
-//               `;
-//       });
+  fetchApi(base_url + "v2/competitions/2021/standings")
+    .then(status)
+    .then(json)
+    .then(function (data) {
+      let standingHTML = "";
+      data.standings[0].table.forEach(function (standing) {
+        standingHTML += `
+      <tr class="mid centered">
+        <th class="centered">${standing.position}</th>
+        <th class="centered club">${standing.team.name}</th>
+        <th class="centered">${standing.playedGames}</th>
+        <th class="centered">${standing.won}</th>
+        <th class="centered">${standing.draw}</th>
+        <th class="centered">${standing.lost}</th>
+        <th class="centered">${standing.goalsFor}</th>
+        <th class="centered">${standing.goalsAgainst}</th>
+        <th class="centered">${standing.goalDifference}</th>
+        <th class="centered points">${standing.points}</th>
+      </tr>
+      `;
+      });
 
-//       document.getElementById("matchUEFA").innerHTML = matchHTML;
-//     });
-// }
+      document.getElementById("standing-league").innerHTML = standingHTML;
+    });
+}
+
+function getStandingMatches() {}
 
 function getTeams() {
   if ("caches" in window) {

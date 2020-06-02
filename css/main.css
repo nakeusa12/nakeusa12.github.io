@@ -103,6 +103,10 @@ i:active {
   background: url("../img/image-team.jpg") no-repeat;
   background-size: cover;
 }
+.jb-rank {
+  background: url("../img/image-rank.jpg") no-repeat;
+  background-size: cover;
+}
 
 .jumbotron h1 {
   margin-top: 80px;
@@ -206,6 +210,8 @@ i:active {
   font-weight: 600;
   text-transform: uppercase;
   background: var(--black-color);
+  margin-top: 30px;
+  text-align: center;
 }
 
 .match {
@@ -225,6 +231,41 @@ i:active {
   font-weight: 500;
 }
 
+.match tbody tr th,
+.match thead tr th {
+  text-align: center;
+}
+
+.match tbody .club {
+  text-align: left;
+}
+
+.match tbody .points {
+  background-color: #bbbbbb;
+}
+
+/* ---------------------------- */
+.topscore-table {
+  background: var(--white-color);
+  -webkit-box-shadow: 0px 4px 30px rgba(196, 196, 196, 0.25);
+  box-shadow: 0px 4px 30px rgba(196, 196, 196, 0.25);
+  margin-bottom: 30px;
+}
+
+.topscore-table thead {
+  font-weight: 600;
+  background: #e2e2e2;
+}
+
+.topscore-table tbody {
+  color: var(--black-color);
+  font-weight: 500;
+}
+
+.topscore-table tbody tr th,
+.topscore-table thead tr th {
+  text-align: center;
+}
 /* ---------------------------- */
 
 #team {
@@ -517,3 +558,5 @@ i:active {
     top: -245px;
   }
 }
+
+/* ---------------------------- */
