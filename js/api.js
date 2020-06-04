@@ -33,7 +33,7 @@ function error(error) {
 function getStandingMatches() {
   if ("caches" in window) {
     caches
-      .match(base_url + "v2/competitions/2021/matches")
+      .match(base_url + "v2/competitions/2021/standings")
       .then(function (response) {
         if (response) {
           response.json().then(function (data) {
@@ -88,7 +88,7 @@ function getStandingMatches() {
 }
 
 function getTopScorers() {
-  if ("chaces" in window) {
+  if ("caches" in window) {
     caches
       .match(base_url + "v2/competitions/2021/scorers")
       .then(function (response) {
@@ -152,7 +152,7 @@ function getTeams() {
               teamHTML += `<a href=./pages/detailteam.html?id=${team.id}>
                                 <div class="team-info">
                                     <div class="club-image">
-                                        <img src="${urlTeamImage}" alt="">
+                                        <img src="${urlTeamImage}" alt="logoClub">
                                     </div>
                                     <p>${team.name}</p>
                                     </div>
@@ -176,7 +176,7 @@ function getTeams() {
         teamHTML += `<a href=./pages/detailteam.html?id=${team.id}&saved=true>
                           <div class="team-info">
                               <div class="club-image">
-                                  <img src="${urlTeamImage}" alt="">
+                                  <img src="${urlTeamImage}" alt="logoClub">
                               </div>
                               <p>${team.name}</p>
                               </div>
@@ -190,8 +190,8 @@ function getTeams() {
 function getTeamsById() {
   return new Promise((resolve, reject) => {
     // Mengambil nilai query parameter (?id=)
-    var urlParams = new URLSearchParams(window.location.search);
-    var idParam = urlParams.get("id");
+    const urlParams = new URLSearchParams(window.location.search);
+    const idParam = urlParams.get("id");
 
     if ("caches" in window) {
       caches.match(base_url + "v2/teams/" + idParam).then(function (response) {
@@ -199,7 +199,7 @@ function getTeamsById() {
           response.json().then(function (data) {
             let urlTeamImage = data.crestUrl;
             urlTeamImage = urlTeamImage.replace(/^http:\/\//i, "https://");
-            let logoTeam = `<img src="${urlTeamImage}" alt="">`;
+            let logoTeam = `<img src="${urlTeamImage}" alt="logoClub">`;
             let nameTeam = data.name;
             let detailTeam = `
               <li>Name : ${data.name}</li>
@@ -241,7 +241,7 @@ function getTeamsById() {
       .then(function (data) {
         let urlTeamImage = data.crestUrl;
         urlTeamImage = urlTeamImage.replace(/^http:\/\//i, "https://");
-        let logoTeam = `<img src="${urlTeamImage}" alt="">`;
+        let logoTeam = `<img src="${urlTeamImage}" alt="logoClub">`;
         let nameTeam = data.name;
         let detailTeam = `
               <li><b>Name</b> : ${data.name}</li>

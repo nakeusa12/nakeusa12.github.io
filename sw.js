@@ -1,4 +1,4 @@
-var CACHE_NAME = "winplay-v3";
+var CACHE_NAME = "winplay-v1";
 var urlsToCache = [
   "/",
   "/nav.html",
@@ -14,6 +14,8 @@ var urlsToCache = [
   "/js/nav.js",
   "/js/api.js",
   "/js/database.js",
+  "/js/notification.js",
+  "/js/register-sw.js",
   "/manifest.json",
   "/img/arrow.svg",
   "/img/favicon16x16.png",
@@ -71,20 +73,13 @@ self.addEventListener("activate", function (event) {
   );
 });
 
-self.addEventListener("push", function (event) {
-  var body;
-  if (event.data) {
-    body = event.data.text();
-  } else {
-    body = "Push message no payload";
-  }
-  var options = {
-    body: body,
-    badge: "favicon16x16.png",
-    vibrate: [100, 50, 100],
+self.addEventListener("push", (event) => {
+  const options = {
+    body: "This notification was generated from a push!",
+    icon: "",
     data: {
       dateOfArrival: Date.now(),
-      primaryKey: 1,
+      primaryKey: "1",
     },
   };
   event.waitUntil(

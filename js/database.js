@@ -80,7 +80,7 @@ function saveTeamFav() {
       
       <div class="area-favorite-team">
         <div class="logo-fav-team">
-          <img src="${urlTeamImage}" alt="">
+          <img src="${urlTeamImage}" alt="logoClub">
         </div>
         <div class="info-team-fav">
           <p class="team-name-fav">${cursor.value.name}</p>
