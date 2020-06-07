@@ -55,6 +55,7 @@ function getStandingMatches() {
               `;
             });
 
+            // Memasukkan data StandingHTML ke id standing-league
             document.getElementById("standing-league").innerHTML = standingHTML;
           });
         }
@@ -68,21 +69,22 @@ function getStandingMatches() {
       let standingHTML = "";
       data.standings[0].table.forEach(function (standing) {
         standingHTML += `
-      <tr class="mid centered">
-        <th class="centered">${standing.position}</th>
-        <th class="centered club">${standing.team.name}</th>
-        <th class="centered">${standing.playedGames}</th>
-        <th class="centered">${standing.won}</th>
-        <th class="centered">${standing.draw}</th>
-        <th class="centered">${standing.lost}</th>
-        <th class="centered">${standing.goalsFor}</th>
-        <th class="centered">${standing.goalsAgainst}</th>
-        <th class="centered">${standing.goalDifference}</th>
-        <th class="centered points">${standing.points}</th>
-      </tr>
+          <tr class="mid centered">
+            <th class="centered">${standing.position}</th>
+            <th class="centered club">${standing.team.name}</th>
+            <th class="centered">${standing.playedGames}</th>
+            <th class="centered">${standing.won}</th>
+            <th class="centered">${standing.draw}</th>
+            <th class="centered">${standing.lost}</th>
+            <th class="centered">${standing.goalsFor}</th>
+            <th class="centered">${standing.goalsAgainst}</th>
+            <th class="centered">${standing.goalDifference}</th>
+            <th class="centered points">${standing.points}</th>
+          </tr>
       `;
       });
 
+      // Memasukkan data StandingHTML ke id standing-league
       document.getElementById("standing-league").innerHTML = standingHTML;
     });
 }

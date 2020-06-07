@@ -8,7 +8,7 @@ var urlsToCache = [
   "/pages/topscore.html",
   "/pages/favorite.html",
   "/pages/detailteam.html",
-  "/css/materialize.css",
+  "/css/materialize.min.css",
   "/css/main.css",
   "/js/materialize.min.js",
   "/js/nav.js",
@@ -35,29 +35,6 @@ self.addEventListener("install", function (event) {
   );
 });
 
-self.addEventListener("fetch", function (event) {
-  var base_url = "https://api.football-data.org/";
-
-  if (event.request.url.indexOf(base_url) > -1) {
-    event.respondWith(
-      caches.open(CACHE_NAME).then(function (cache) {
-        return fetch(event.request).then(function (response) {
-          cache.put(event.request.url, response.clone());
-          return response;
-        });
-      })
-    );
-  } else {
-    event.respondWith(
-      caches
-        .match(event.request, { ignoreSearch: true })
-        .then(function (response) {
-          return response || fetch(event.request);
-        })
-    );
-  }
-});
-
 self.addEventListener("activate", function (event) {
   event.waitUntil(
     caches.keys().then(function (cacheNames) {
@@ -70,6 +47,30 @@ self.addEventListener("activate", function (event) {
         })
       );
     })
+  );
+});
+
+// const base_url = "https://api.football-data.org/";
+self.addEventListener("fetch", function (event) {
+  event.respondWith(
+    caches
+      .match(event.request, { cacheName: CACHE_NAME })
+      .then(function (response) {
+        if (response) {
+          return response;
+        }
+        var fetchRequest = event.request.clone();
+        return fetch(fetchRequest).then(function (response) {
+          if (!response || response.status !== 200) {
+            return response;
+          }
+          var responseToCache = response.clone();
+          caches.open(CACHE_NAME).then(function (cache) {
+            cache.put(event.request, responseToCache);
+          });
+          return response;
+        });
+      })
   );
 });
 
