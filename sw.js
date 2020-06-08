@@ -43,7 +43,7 @@ workbox.precaching.precacheAndRoute([
   { url: "/js/database.js", revision: "1" },
   { url: "/js/notification.js", revision: "1" },
   { url: "/js/register-sw.js", revision: "1" },
-  { url: "/manifest.json", revision: "1" },
+  { url: "/manifest.json", revision: "2" },
 ]);
 
 self.addEventListener("push", (event) => {

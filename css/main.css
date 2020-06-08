@@ -135,6 +135,7 @@ i:active {
   position: relative;
   box-shadow: 2px 2px 10px var(--black-color);
   font-family: "Poppins";
+  position: relative;
 }
 
 .btn-jumbo img {
