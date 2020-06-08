@@ -1,78 +1,50 @@
-var CACHE_NAME = "winplay-v1";
-var urlsToCache = [
-  "/",
-  "/nav.html",
-  "/index.html",
-  "/pages/home.html",
-  "/pages/ranks.html",
-  "/pages/topscore.html",
-  "/pages/favorite.html",
-  "/pages/detailteam.html",
-  "/css/materialize.min.css",
-  "/css/main.css",
-  "/js/materialize.min.js",
-  "/js/nav.js",
-  "/js/api.js",
-  "/js/database.js",
-  "/js/notification.js",
-  "/js/register-sw.js",
-  "/manifest.json",
-  "/img/arrow.svg",
-  "/img/favicon16x16.png",
-  "/img/icon512px.png",
-  "/img/icon192px.png",
-  "/img/logo.png",
-  "/img/jumbtron-home.jpg",
-  "/img/image-rank.jpg",
-  "/img/image-team.jpg",
-];
+importScripts(
+  "https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js"
+);
 
-self.addEventListener("install", function (event) {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) {
-      return cache.addAll(urlsToCache);
-    })
-  );
-});
+if (workbox) {
+  console.log(`Yay! Workbox is loaded 🎉`);
+} else {
+  console.log(`Boo! Workbox didn't load 😬`);
+}
 
-self.addEventListener("activate", function (event) {
-  event.waitUntil(
-    caches.keys().then(function (cacheNames) {
-      return Promise.all(
-        cacheNames.map(function (cacheName) {
-          if (cacheName != CACHE_NAME) {
-            console.log("ServiceWorker: cache " + cacheName + " dihapus");
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
-});
+workbox.routing.registerRoute(
+  new RegExp("/pages/detailteam.html"),
+  workbox.strategies.cacheFirst()
+);
 
-// const base_url = "https://api.football-data.org/";
-self.addEventListener("fetch", function (event) {
-  event.respondWith(
-    caches
-      .match(event.request, { cacheName: CACHE_NAME })
-      .then(function (response) {
-        if (response) {
-          return response;
-        }
-        var fetchRequest = event.request.clone();
-        return fetch(fetchRequest).then(function (response) {
-          if (!response || response.status !== 200) {
-            return response;
-          }
-          var responseToCache = response.clone();
-          caches.open(CACHE_NAME).then(function (cache) {
-            cache.put(event.request, responseToCache);
-          });
-          return response;
-        });
-      })
-  );
-});
+workbox.routing.registerRoute(
+  new RegExp("https://api.football-data.org/v2"),
+  workbox.strategies.cacheFirst()
+);
+
+workbox.routing.registerRoute(
+  new RegExp("/pages/"),
+  workbox.strategies.staleWhileRevalidate({
+    cacheName: "pages",
+  })
+);
+
+workbox.routing.registerRoute(
+  new RegExp("/img/"),
+  workbox.strategies.staleWhileRevalidate({
+    cacheName: "image",
+  })
+);
+
+workbox.precaching.precacheAndRoute([
+  { url: "/index.html", revision: "1" },
+  { url: "/nav.html", revision: "1" },
+  { url: "/css/materialize.min.css", revision: "1" },
+  { url: "/css/main.css", revision: "1" },
+  { url: "/js/materialize.min.js", revision: "1" },
+  { url: "/js/api.js", revision: "1" },
+  { url: "/js/nav.js", revision: "1" },
+  { url: "/js/database.js", revision: "1" },
+  { url: "/js/notification.js", revision: "1" },
+  { url: "/js/register-sw.js", revision: "1" },
+  { url: "/manifest.json", revision: "1" },
+]);
 
 self.addEventListener("push", (event) => {
   const options = {
