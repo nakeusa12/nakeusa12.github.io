@@ -55,7 +55,9 @@ document.addEventListener("DOMContentLoaded", function () {
           } else if (page == "topscore") {
             getTopScorers();
           } else if (page == "favorite") {
-            saveTeamFav();
+            setTimeout(function () {
+              saveTeamFav();
+            }, 3000);
           }
 
           // ----

@@ -134,4 +134,10 @@ function deleteTeam(id) {
   M.toast({
     html: "Team Has Been Deleted Succesfully",
   });
+
+  timeRefresh(10);
+}
+
+function timeRefresh(timeoutPeriod) {
+  setTimeout("location.reload(true);", timeoutPeriod);
 }

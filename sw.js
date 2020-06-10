@@ -31,20 +31,24 @@ workbox.routing.registerRoute(
     cacheName: "image",
   })
 );
-
-workbox.precaching.precacheAndRoute([
-  { url: "/index.html", revision: "1" },
-  { url: "/nav.html", revision: "1" },
-  { url: "/css/materialize.min.css", revision: "1" },
-  { url: "/css/main.css", revision: "1" },
-  { url: "/js/materialize.min.js", revision: "1" },
-  { url: "/js/api.js", revision: "1" },
-  { url: "/js/nav.js", revision: "1" },
-  { url: "/js/database.js", revision: "1" },
-  { url: "/js/notification.js", revision: "1" },
-  { url: "/js/register-sw.js", revision: "1" },
-  { url: "/manifest.json", revision: "2" },
-]);
+workbox.precaching.precacheAndRoute(
+  [
+    { url: "/index.html", revision: "1" },
+    { url: "/nav.html", revision: "1" },
+    { url: "/css/materialize.min.css", revision: "1" },
+    { url: "/css/main.css", revision: "1" },
+    { url: "/js/materialize.min.js", revision: "1" },
+    { url: "/js/api.js", revision: "1" },
+    { url: "/js/nav.js", revision: "1" },
+    { url: "/js/database.js", revision: "1" },
+    { url: "/js/notification.js", revision: "1" },
+    { url: "/js/register-sw.js", revision: "1" },
+    { url: "/manifest.json", revision: "2" },
+  ],
+  {
+    ignoreUrlParametersMatching: [/.*/],
+  }
+);
 
 self.addEventListener("push", (event) => {
   const options = {
