@@ -33,8 +33,8 @@ workbox.routing.registerRoute(
 );
 workbox.precaching.precacheAndRoute(
   [
-    { url: "/index.html", revision: "1" },
-    { url: "/nav.html", revision: "1" },
+    { url: "index.html", revision: "1" },
+    { url: "nav.html", revision: "1" },
     { url: "/css/materialize.min.css", revision: "1" },
     { url: "/css/main.css", revision: "1" },
     { url: "/js/materialize.min.js", revision: "1" },
@@ -43,7 +43,7 @@ workbox.precaching.precacheAndRoute(
     { url: "/js/database.js", revision: "1" },
     { url: "/js/notification.js", revision: "1" },
     { url: "/js/register-sw.js", revision: "1" },
-    { url: "/manifest.json", revision: "2" },
+    { url: "manifest.json", revision: "3" },
   ],
   {
     ignoreUrlParametersMatching: [/.*/],
